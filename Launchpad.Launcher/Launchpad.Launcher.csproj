@@ -8,7 +8,7 @@
     <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>7.1</LangVersion>
-    <Prefer32bit>true</Prefer32bit>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <!-- Workaround for https://github.com/dotnet/roslyn-project-system/issues/1739 -->
@@ -21,7 +21,24 @@
     <Description>An open-source launcher for your games.</Description>
     <Authors>Jarl Gullberg;jax</Authors>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <Prefer32bit>true</Prefer32bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <Prefer32bit>true</Prefer32bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Prefer32bit>true</Prefer32bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Prefer32bit>true</Prefer32bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Prefer32bit>true</Prefer32bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Prefer32bit>true</Prefer32bit>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.13.7" />
     <PackageReference Include="GtkSharp" Version="3.22.25.24" />
