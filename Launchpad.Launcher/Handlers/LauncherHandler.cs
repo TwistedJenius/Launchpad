@@ -88,7 +88,7 @@ namespace Launchpad.Launcher.Handlers
 		{
 			try
 			{
-				Log.Info($"Starting update of lancher files using protocol \"{this.Patch.GetType().Name}\"");
+				Log.Info($"Starting update of launcher files using protocol \"{this.Patch.GetType().Name}\"");
 
 				var t = new Thread(() => this.Patch.UpdateModule(EModule.Launcher))
 				{

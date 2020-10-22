@@ -170,6 +170,9 @@ namespace Launchpad.Launcher.Handlers.Protocols
 
 				// Verify Game
 				VerifyModule(EModule.Game);
+
+				// Installs any dependencies needed
+				InstallDependencies();
 			}
 			catch (IOException ioex)
 			{
@@ -188,6 +191,11 @@ namespace Launchpad.Launcher.Handlers.Protocols
 		/// </summary>
 		/// <param name="module">The module.</param>
 		protected abstract void DownloadModule(EModule module);
+
+		/// <summary>
+		/// Installs any needed dependency.
+		/// </summary>
+		protected abstract void InstallDependencies();
 
 		/// <summary>
 		/// Updates the specified module to the latest version.

@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -200,6 +201,73 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 
 			OnModuleInstallationFinished(module);
 		}
+
+		/// <summary>
+		/// Installs the dependencies.
+		/// </summary>
+		protected override void InstallDependencies()
+    {
+      try
+      {
+        var executable = Path.Combine(DirectoryHelpers.GetLocalGameDirectory(), "Engine/Extras/Redist/en-us/UE4PrereqSetup_x64.exe");
+        Log.Info($"executable {executable}");
+        if (!File.Exists(executable))
+        {
+          throw new FileNotFoundException($"Game executable at path (\"{executable}\") not found.");
+        }
+
+        var executableDir = Path.GetDirectoryName(executable) ?? DirectoryHelpers.GetLocalLauncherDirectory();
+
+        // Do not move the argument assignment inside the gameStartInfo initializer.
+        // It causes a TargetInvocationException crash through black magic.
+        var gameStartInfo = new ProcessStartInfo
+        {
+          FileName = executable,
+          Arguments = string.Empty,
+          WorkingDirectory = executableDir
+        };
+
+        Log.Info($"Launching game. \n\tExecutable path: {gameStartInfo.FileName}");
+
+        var gameProcess = new Process
+        {
+          StartInfo = gameStartInfo,
+          EnableRaisingEvents = true
+        };
+
+        gameProcess.Exited += (sender, args) =>
+        {
+          if (gameProcess.ExitCode != 0)
+          {
+            Log.Info
+            (
+              $"The game exited with an exit code of {gameProcess.ExitCode}. " +
+              "There may have been issues during runtime, or the game may not have started at all."
+            );
+          }
+
+          // Manual disposing
+          gameProcess.Dispose();
+        };
+
+        // Make sure the game executable is flagged as such on Unix
+        if (PlatformHelpers.IsRunningOnUnix())
+        {
+          Process.Start("chmod", $"+x {gameStartInfo.FileName}");
+        }
+
+        gameProcess.Start();
+      }
+      catch (FileNotFoundException fex)
+      {
+        Log.Warn($"Dependencies installation failed (FileNotFoundException): {fex.Message}");
+        Log.Warn("Check for the UE4 installation.");
+      }
+      catch (IOException ioex)
+      {
+        Log.Warn($"Dependencies installation failed (IOException): {ioex.Message}");
+      }
+    }
 
 		/// <inheritdoc />
 		public override void VerifyModule(EModule module)

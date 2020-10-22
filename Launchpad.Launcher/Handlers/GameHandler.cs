@@ -118,6 +118,19 @@ namespace Launchpad.Launcher.Handlers
 			};
 
 			t.Start();
+
+      System.Threading.Tasks.Task.Run(() =>
+      {
+        t.Join();
+        if (Configuration.SystemTarget == Common.Enums.ESystemTarget.Win64 ||
+            Configuration.SystemTarget == Common.Enums.ESystemTarget.Win32)
+        {
+          if (!File.Exists("C:/Windows/System32/vcruntime140_1.dll"))
+          {
+            InstallDependencies();
+          }
+        }
+      });
 		}
 
 		/// <summary>
@@ -175,6 +188,92 @@ namespace Launchpad.Launcher.Handlers
 			};
 
 			t.Start();
+
+      System.Threading.Tasks.Task.Run(() =>
+      {
+        t.Join();
+        if (Configuration.SystemTarget == Common.Enums.ESystemTarget.Win64 ||
+            Configuration.SystemTarget == Common.Enums.ESystemTarget.Win32 )
+        {
+          if (!File.Exists("C:/Windows/System32/vcruntime140_1.dll"))
+          {
+            InstallDependencies();
+          }
+        }
+      });
+		}
+
+		/// <summary>
+		/// Launches the game.
+		/// </summary>
+		public void InstallDependencies()
+    {
+      try
+      {
+        var executable = Path.Combine(DirectoryHelpers.GetLocalGameDirectory(), "Engine/Extras/Redist/en-us/UE4PrereqSetup_x64.exe");
+        Log.Info($"executable {executable}");
+        if (!File.Exists(executable))
+        {
+          throw new FileNotFoundException($"Dependency at path (\"{executable}\") not found.");
+        }
+
+        var executableDir = Path.GetDirectoryName(executable); // ?? DirectoryHelpers.GetLocalLauncherDirectory();
+
+        // Do not move the argument assignment inside the gameStartInfo initializer.
+        // It causes a TargetInvocationException crash through black magic.
+        var gameArguments = string.Join(" ", this.GameArgumentService.GetGameArguments());
+        var gameStartInfo = new ProcessStartInfo
+        {
+          FileName = executable,
+          Arguments = string.Empty,
+          WorkingDirectory = executableDir
+        };
+
+        Log.Info($"Launching game. \n\tExecutable path: {gameStartInfo.FileName}");
+
+        var gameProcess = new Process
+        {
+          StartInfo = gameStartInfo,
+          EnableRaisingEvents = true
+        };
+
+        gameProcess.Exited += (sender, args) =>
+        {
+          if (gameProcess.ExitCode != 0)
+          {
+            Log.Info
+            (
+              $"Dependency exited with an exit code of {gameProcess.ExitCode}. " +
+              "There may have been issues during runtime, or the dependency may not have started at all."
+            );
+          }
+
+          OnGameExited(gameProcess.ExitCode);
+
+          // Manual disposing
+          gameProcess.Dispose();
+        };
+
+        // Make sure the game executable is flagged as such on Unix
+        if (PlatformHelpers.IsRunningOnUnix())
+        {
+          Process.Start("chmod", $"+x {gameStartInfo.FileName}");
+        }
+
+        gameProcess.Start();
+      }
+      catch (FileNotFoundException fex)
+      {
+        Log.Warn($"Dependency launch failed (FileNotFoundException): {fex.Message}");
+
+        OnGameLaunchFailed();
+      }
+      catch (IOException ioex)
+      {
+        Log.Warn($"Dependency launch failed (IOException): {ioex.Message}");
+
+        OnGameLaunchFailed();
+      }
 		}
 
 		/// <summary>
