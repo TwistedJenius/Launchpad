@@ -1,0 +1,134 @@
+@import "functions";
+
+/**
+Base button colors
+ */
+@pinkH: 323;
+@dS: 92%;
+@lS: 78%;
+@dB: 86%;
+@lB: 96%;
+
+/**
+Main Window background
+ */
+.bg {
+	background: url("http://fast.wadimich.ru/custom/bg.jpg") no-repeat 0 100% transparent;
+	background-size: cover;
+}
+
+/**
+Menu buttons
+ */
+.menu-item {
+	background: none;
+	border: 1px solid #bc86b2;
+	border-radius: 10px;
+	.baseFont(18px, #4a0e66);
+	transition: all 0.1s linear;
+
+	&:hover {
+		background-color: #bc86b2;
+		box-shadow: none;
+	}
+}
+
+.status-label {
+	color: #fff;
+}
+
+/**
+Progress bar
+ */
+progressbar {
+	@height: 36px;
+	.baseFont(16px);
+
+	&.horizontal {
+		trough {
+			min-height: @height;
+			margin-top: -@height;
+			border: 1px solid desaturate(@bd-color, 100%);
+			box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+				to top,
+				hsv(@pinkH, 5%, @dB - 46),
+				hsv(@pinkH, 5%, @dB - 46) 49%,
+				hsv(@pinkH, 0%, @lB - 36) 52%,
+				hsv(@pinkH, 0%, @lB - 36)
+			);
+			border-radius: 10px;
+		}
+		progress {
+			min-height: @height - 4;
+			background: linear-gradient(
+				to top,
+				hsv(@pinkH, @dS, @dB),
+				hsv(@pinkH, @dS, @dB) 49%,
+				hsv(@pinkH, @lS, @lB) 52%,
+				hsv(@pinkH, @lS, @lB)
+			);
+			box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+			//border: 1px solid @bd-color;
+			border-radius: 10px;
+			margin-left: 2px;
+			margin-right: 2px;
+		}
+		text {
+			margin-top: 16px / 2 + 1;
+		}
+	}
+}
+
+/**
+Button
+ */
+button {
+	min-height: 28px;
+	background: linear-gradient(
+		to top,
+		hsv(@pinkH, @dS, @dB),
+		hsv(@pinkH, @dS, @dB) 49%,
+		hsv(@pinkH, @lS, @lB) 52%,
+		hsv(@pinkH, @lS, @lB)
+	);
+	box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+	border: 1px solid @bd-color;
+	border-radius: 10px;
+	transition: all 0.1s linear;
+	.baseFont();
+
+	&:hover {
+		.stroke(1px, 1px, saturate(@bd-color, 22%));
+		background: linear-gradient(
+			to top,
+			hsv(@pinkH, @dS - 22, @dB + 14),
+			hsv(@pinkH, @dS - 22, @dB + 14) 49%,
+			hsv(@pinkH, @lS - 28, @lB + 4) 52%,
+			hsv(@pinkH, @lS - 28, @lB + 4)
+		);
+	}
+
+	&:active {
+		.stroke(1px, 1px, saturate(@bd-color, 22%));
+		background: linear-gradient(
+			to top,
+			hsv(@pinkH, @dS - 7, @dB - 16),
+			hsv(@pinkH, @dS - 7, @dB - 16) 49%,
+			hsv(@pinkH, @lS - 8, @lB - 11) 52%,
+			hsv(@pinkH, @lS - 8, @lB - 11)
+		);
+	}
+
+	&:disabled {
+		border-color: desaturate(@bd-color, 100%);
+		.stroke(1px, 1px, desaturate(@bd-color, 100%));
+		background: linear-gradient(
+			to top,
+			hsv(@pinkH, 5%, @dB - 46),
+			hsv(@pinkH, 5%, @dB - 46) 49%,
+			hsv(@pinkH, 0%, @lB - 36) 52%,
+			hsv(@pinkH, 0%, @lB - 36)
+		);
+	}
+}

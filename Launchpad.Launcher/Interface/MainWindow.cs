@@ -122,6 +122,12 @@ namespace Launchpad.Launcher.Interface
 			// Set the window title
 			this.Title = LocalizationCatalog.GetString("Launchpad - {0}", this.Configuration.GameName);
 			this.StatusLabel.Text = LocalizationCatalog.GetString("Idle");
+
+			// Set locales
+			this.MenuHelpItem.Label = LocalizationCatalog.GetString("Help");
+			this.MenuToolsItem.Label = LocalizationCatalog.GetString("Tools");
+			this.MenuRepairItem.Label = LocalizationCatalog.GetString("Repair");
+			this.MenuReinstallItem.Label = LocalizationCatalog.GetString("Reinstall");
 		}
 
 		/// <summary>

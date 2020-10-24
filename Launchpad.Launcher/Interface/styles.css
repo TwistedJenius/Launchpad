@@ -1,0 +1,87 @@
+/**
+Base button colors
+ */
+/**
+Main Window background
+ */
+.bg {
+  background: url("http://fast.wadimich.ru/custom/bg.jpg") no-repeat 0 100% transparent;
+  background-size: cover;
+}
+/**
+Menu buttons
+ */
+.menu-item {
+  background: none;
+  border: 1px solid #bc86b2;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #4a0e66, 0 -1px 1px #4a0e66, -1px 0 1px #4a0e66, 1px 0 1px #4a0e66, 1px 1px 1px #4a0e66, 1px -1px 1px #4a0e66, -1px 1px 1px #4a0e66, -1px -1px 1px #4a0e66;
+  transition: all 0.1s linear;
+}
+.menu-item:hover {
+  background-color: #bc86b2;
+  box-shadow: none;
+}
+.status-label {
+  color: #fff;
+}
+/**
+Progress bar
+ */
+progressbar {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #cc0c73, 0 -1px 1px #cc0c73, -1px 0 1px #cc0c73, 1px 0 1px #cc0c73, 1px 1px 1px #cc0c73, 1px -1px 1px #cc0c73, -1px 1px 1px #cc0c73, -1px -1px 1px #cc0c73;
+}
+progressbar.horizontal trough {
+  min-height: 36px;
+  margin-top: -36px;
+  border: 1px solid #6c6c6c;
+  box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(to top, #666164, #666164 49%, #999999 52%, #999999);
+  border-radius: 10px;
+}
+progressbar.horizontal progress {
+  min-height: 32px;
+  background: linear-gradient(to top, #db128e, #db128e 49%, #f536ac 52%, #f536ac);
+  box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+progressbar.horizontal text {
+  margin-top: 9px;
+}
+/**
+Button
+ */
+button {
+  min-height: 28px;
+  background: linear-gradient(to top, #db128e, #db128e 49%, #f536ac 52%, #f536ac);
+  box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+  border: 1px solid #cc0c73;
+  border-radius: 10px;
+  transition: all 0.1s linear;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #cc0c73, 0 -1px 1px #cc0c73, -1px 0 1px #cc0c73, 1px 0 1px #cc0c73, 1px 1px 1px #cc0c73, 1px -1px 1px #cc0c73, -1px 1px 1px #cc0c73, -1px -1px 1px #cc0c73;
+}
+button:hover {
+  text-shadow: 0 1px 1px #d80073, 0 -1px 1px #d80073, -1px 0 1px #d80073, 1px 0 1px #d80073, 1px 1px 1px #d80073, 1px -1px 1px #d80073, -1px 1px 1px #d80073, -1px -1px 1px #d80073;
+  background: linear-gradient(to top, #ff4dbb, #ff4dbb 49%, #ff80ce 52%, #ff80ce);
+}
+button:active {
+  text-shadow: 0 1px 1px #d80073, 0 -1px 1px #d80073, -1px 0 1px #d80073, 1px 0 1px #d80073, 1px 1px 1px #d80073, 1px -1px 1px #d80073, -1px 1px 1px #d80073, -1px -1px 1px #d80073;
+  background: linear-gradient(to top, #b31b78, #b31b78 49%, #d9419f 52%, #d9419f);
+}
+button:disabled {
+  border-color: #6c6c6c;
+  text-shadow: 0 1px 1px #6c6c6c, 0 -1px 1px #6c6c6c, -1px 0 1px #6c6c6c, 1px 0 1px #6c6c6c, 1px 1px 1px #6c6c6c, 1px -1px 1px #6c6c6c, -1px 1px 1px #6c6c6c, -1px -1px 1px #6c6c6c;
+  background: linear-gradient(to top, #666164, #666164 49%, #999999 52%, #999999);
+}
+/*# sourceMappingURL=styles.css.map */

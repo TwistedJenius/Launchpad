@@ -240,8 +240,14 @@
         <e p="Interface" t="Include">
           <e p="Launchpad.glade" t="Include" />
           <e p="Launchpad.glade~" t="Include" />
+          <e p="functions.css" t="Include" />
+          <e p="functions.css.map" t="Include" />
+          <e p="functions.less" t="Include" />
           <e p="MainWindow.UI.cs" t="Include" />
           <e p="MainWindow.cs" t="Include" />
+          <e p="styles.css" t="Include" />
+          <e p="styles.css.map" t="Include" />
+          <e p="styles.less" t="Include" />
         </e>
         <e p="Launchpad.Launcher.csproj" t="IncludeRecursive" />
         <e p="Launchpad.Launcher.csproj.DotSettings" t="Include" />
@@ -272,7 +278,7 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="x86" t="Include">
             <e p="Debug" t="Include">
-              <e p="net461" t="Include">
+              <e p="net462" t="Include">
                 <e p="Launchpad.Launcher.AssemblyInfo.cs" t="Include" />
               </e>
             </e>

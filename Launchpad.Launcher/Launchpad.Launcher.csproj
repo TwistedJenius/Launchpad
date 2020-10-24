@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Launchpad</AssemblyName>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
     <Platform>x86</Platform>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.13.7" />
+	<PackageReference Include="GioSharp" Version="3.22.25.24" />
     <PackageReference Include="GtkSharp" Version="3.22.25.24" />
     <PackageReference Include="NLog" Version="4.6.6" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0002" />
@@ -52,6 +53,9 @@
     <EmbeddedResource Include="app.manifest" />
     <EmbeddedResource Include="Resources\**\*.*" />
     <EmbeddedResource Include="Interface\Launchpad.glade" />
+    <None Remove="Interface\styles.css" />
+    <EmbeddedResource Include="Interface\styles.css" />
+	<None Remove="Interface\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +70,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <InProject>false</InProject>
     </Content>
+	<None Remove="Resources\img\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>

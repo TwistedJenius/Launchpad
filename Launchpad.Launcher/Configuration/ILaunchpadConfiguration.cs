@@ -43,7 +43,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the system target of the launcher.
 		/// </summary>
-		[Option(Alias = "Launcher.SystemTarget", DefaultValue = "Linux")]
+		[Option(Alias = "Launcher.SystemTarget", DefaultValue = "Win64")]
 		ESystemTarget SystemTarget { get; set; }
 
 		// Game section
@@ -58,7 +58,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the path to the game's executable, relative to the launcher.
 		/// </summary>
-		[Option(Alias = "Game.ExecutablePath", DefaultValue = "LaunchpadExample/Binaries/Linux/LaunchpadExample")]
+		[Option(Alias = "Game.ExecutablePath", DefaultValue = "LaunchpadExample/Binaries/Win64/LaunchpadExample")]
 		string ExecutablePath { get; set; }
 
 		// Remote section

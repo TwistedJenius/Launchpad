@@ -1,0 +1,20 @@
+@bd-color: hsv(328, 94%, 80%);
+
+.stroke ( @border: 1px, @gauss: 1px, @color: #fff) {
+	text-shadow: 0 @border @gauss @color,
+		0 -@border @gauss @color,
+	-@border 0 @gauss @color,
+	@border 0 @gauss @color,
+	@border @border @gauss @color,
+		@border -@border @gauss @color,
+	-@border @border @gauss @color,
+		-@border -@border @gauss @color;
+}
+
+.baseFont(@fontSize: 22px, @strokeColor: @bd-color) {
+	color: #fff;
+	font-size: @fontSize;
+	//font-family: sans-serif;
+	font-weight: bold;
+	.stroke(1px, 1px, @strokeColor);
+}
