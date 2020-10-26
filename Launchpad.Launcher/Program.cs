@@ -148,7 +148,7 @@ namespace Launchpad.Launcher
 				Log.Fatal
 				(
 					"This exception is typical of instances where the GTK# runtime has not been installed.\n" +
-					"If you haven't installed it, download it at \'http://www.mono-project.com/download/#download-win\'.\n" +
+					"If you haven't installed it, download it at \'https://www.mono-project.com/download/stable/#download-win\'.\n" +
 					"If you have installed it, reboot your computer and try again."
 				);
 

@@ -9,6 +9,7 @@ cd $LAUNCHPAD_TRANSLATIONS_ROOT
 mkdir "translations_update"
 cd "translations_update"
 
+# https://crowdin.com/project/launchpad
 wget https://crowdin.com/download/project/launchpad.zip
 unzip launchpad.zip
 

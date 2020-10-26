@@ -266,6 +266,8 @@ namespace Launchpad.Launcher.Interface
 			{
 				if (shouldInstallHereDialog.Run() == (int)ResponseType.Ok)
 				{
+					shouldInstallHereDialog.Destroy();
+
 					// Yes, install here
 					Log.Info("User accepted installation in this directory. Installing in current directory.");
 
@@ -273,6 +275,8 @@ namespace Launchpad.Launcher.Interface
 				}
 				else
 				{
+					shouldInstallHereDialog.Destroy();
+
 					// No, don't install here
 					Log.Info("User declined installation in this directory. Exiting...");
 					Environment.Exit(2);
@@ -656,6 +660,7 @@ namespace Launchpad.Launcher.Interface
 						{
 							SetLauncherMode(ELauncherMode.Launch, false);
 						}
+						crashDialog.Destroy();
 					}
 				}
 				else
@@ -688,6 +693,7 @@ namespace Launchpad.Launcher.Interface
 					SetLauncherMode(ELauncherMode.Install, true);
 					this.Game.ReinstallGame();
 				}
+				reinstallConfirmDialog.Destroy();
 			}
 		}
 	}

@@ -38,7 +38,7 @@ progressbar {
   text-shadow: 0 1px 1px #cc0c73, 0 -1px 1px #cc0c73, -1px 0 1px #cc0c73, 1px 0 1px #cc0c73, 1px 1px 1px #cc0c73, 1px -1px 1px #cc0c73, -1px 1px 1px #cc0c73, -1px -1px 1px #cc0c73;
 }
 progressbar.horizontal trough {
-  min-height: 36px;
+  /*min-height: 36px;*/
   margin-top: -36px;
   border: 1px solid #6c6c6c;
   box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
@@ -46,7 +46,7 @@ progressbar.horizontal trough {
   border-radius: 10px;
 }
 progressbar.horizontal progress {
-  min-height: 32px;
+  /*min-height: 32px;*/
   background: linear-gradient(to top, #db128e, #db128e 49%, #f536ac 52%, #f536ac);
   box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
   border-radius: 10px;
@@ -60,7 +60,7 @@ progressbar.horizontal text {
 Button
  */
 button {
-  min-height: 28px;
+  /*min-height: 28px;*/
   background: linear-gradient(to top, #db128e, #db128e 49%, #f536ac 52%, #f536ac);
   box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
   border: 1px solid #cc0c73;
@@ -71,6 +71,7 @@ button {
   font-weight: bold;
   text-shadow: 0 1px 1px #cc0c73, 0 -1px 1px #cc0c73, -1px 0 1px #cc0c73, 1px 0 1px #cc0c73, 1px 1px 1px #cc0c73, 1px -1px 1px #cc0c73, -1px 1px 1px #cc0c73, -1px -1px 1px #cc0c73;
 }
+/*
 button:hover {
   text-shadow: 0 1px 1px #d80073, 0 -1px 1px #d80073, -1px 0 1px #d80073, 1px 0 1px #d80073, 1px 1px 1px #d80073, 1px -1px 1px #d80073, -1px 1px 1px #d80073, -1px -1px 1px #d80073;
   background: linear-gradient(to top, #ff4dbb, #ff4dbb 49%, #ff80ce 52%, #ff80ce);
@@ -84,4 +85,5 @@ button:disabled {
   text-shadow: 0 1px 1px #6c6c6c, 0 -1px 1px #6c6c6c, -1px 0 1px #6c6c6c, 1px 0 1px #6c6c6c, 1px 1px 1px #6c6c6c, 1px -1px 1px #6c6c6c, -1px 1px 1px #6c6c6c, -1px -1px 1px #6c6c6c;
   background: linear-gradient(to top, #666164, #666164 49%, #999999 52%, #999999);
 }
+*/
 /*# sourceMappingURL=styles.css.map */
