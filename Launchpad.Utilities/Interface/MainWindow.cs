@@ -102,11 +102,11 @@ namespace Launchpad.Utilities.Interface
 					var gameVersionPath = SysPath.Combine(targetDirectory, "GameVersion.txt");
 					File.WriteAllText(gameVersionPath, new Version("1.0.0").ToString());
 
-					dialog.Destroy();
+					dialog.Dispose();
 				}
 				else
 				{
-					dialog.Destroy();
+					dialog.Dispose();
 					return;
 				}
 			}

@@ -138,7 +138,7 @@ namespace Launchpad.Common.Handlers.Manifest
 				}
 				else
 				{
-					//this.OldManifests.AddOrUpdate(manifestType, LoadManifest(oldManifestPath));
+					this.OldManifests.AddOrUpdate(manifestType, LoadManifest(oldManifestPath));
 				}
 			}
 		}
