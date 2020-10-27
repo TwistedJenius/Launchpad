@@ -46,47 +46,7 @@
         </e>
         <e p="Content" t="Include">
           <e p="locale" t="Include">
-            <e p="af" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="ar" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="bg" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="bn" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="ca" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="cs" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="da" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
             <e p="de" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="el" t="Include">
               <e p="LC_MESSAGES" t="Include">
                 <e p="messages.po" t="Include" />
               </e>
@@ -101,62 +61,12 @@
                 <e p="messages.po" t="Include" />
               </e>
             </e>
-            <e p="fi" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
             <e p="fr" t="Include">
               <e p="LC_MESSAGES" t="Include">
                 <e p="messages.po" t="Include" />
               </e>
             </e>
-            <e p="he" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="hi" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="hu" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="id" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
             <e p="it" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="ja" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="ko" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="nl" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="no" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="pl" t="Include">
               <e p="LC_MESSAGES" t="Include">
                 <e p="messages.po" t="Include" />
               </e>
@@ -167,51 +77,6 @@
               </e>
             </e>
             <e p="pt_PT" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="ro" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="ru" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="sr" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="sv_SE" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="tr" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="uk" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="vi" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="zh_CN" t="Include">
-              <e p="LC_MESSAGES" t="Include">
-                <e p="messages.po" t="Include" />
-              </e>
-            </e>
-            <e p="zh_TW" t="Include">
               <e p="LC_MESSAGES" t="Include">
                 <e p="messages.po" t="Include" />
               </e>
