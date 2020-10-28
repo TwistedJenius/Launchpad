@@ -23,6 +23,7 @@
 using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Timers;
 using Gdk;
 using GLib;
 using Gtk;
@@ -95,6 +96,11 @@ namespace Launchpad.Launcher.Interface
 		private bool IsInitialized;
 
 		/// <summary>
+		/// Whether or not we should launch the game after downloading.
+		/// </summary>
+		private bool ShouldLaunchGame;
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="MainWindow"/> class.
 		/// </summary>
 		/// <param name="builder">The UI builder.</param>
@@ -141,8 +147,30 @@ namespace Launchpad.Launcher.Interface
 				return Task.CompletedTask;
 			}
 
+			//this.StatusLabel.Text = LocalizationCatalog.GetString("Checking for updates...");
+
+			if (this.Checks.CanPatch())
+			{
+				LoadBanner();
+				LoadChangelog();
+			}
+
+			Timer postInitDelay = new Timer(50);
+			postInitDelay.Elapsed += PostInitEvent;
+			postInitDelay.AutoReset = false;
+			postInitDelay.Start();
+
+			this.IsInitialized = true;
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Perform post init checks.
+		/// </summary>
+		private void PostInitEvent(object sender, ElapsedEventArgs e)
+		{
 			// First of all, check if we can connect to the patching service.
-			if (!this.Checks.CanPatch())
+			if (!this.Checks.CanPatch() || !this.Checks.IsPlatformAvailable(this.Configuration.SystemTarget))
 			{
 				using (var dialog = new MessageDialog
 				(
@@ -158,74 +186,73 @@ namespace Launchpad.Launcher.Interface
 
 				this.StatusLabel.Text = LocalizationCatalog.GetString("Could not connect to server.");
 				this.MenuRepairItem.Sensitive = false;
+
+				// If we cannot connect to the server but the game is installed, launch it anyway
+				if (this.Checks.IsGameInstalled())
+				{
+					this.ShouldLaunchGame = true;
+					SetLauncherMode(ELauncherMode.Launch, false);
+					ExecuteMainAction();
+
+					return;
+				}
+				else
+				{
+					Application.Quit();
+				}
 			}
 			else
 			{
-				LoadBanner();
-
-				LoadChangelog();
-
 				// If we can connect, proceed with the rest of our checks.
-				if (ChecksHandler.IsInitialStartup())
+				if (ChecksHandler.IsInitialStartup() && !this.Checks.IsGameInstalled())
 				{
-					DisplayInitialStartupDialog();
+					Log.Info("This instance is the first start of the application in this folder.");
+					this.TagfileService.CreateLauncherTagfile();
+					this.ShouldLaunchGame = true;
+					SetLauncherMode(ELauncherMode.Install, false);
+					ExecuteMainAction();
+
+					return;
 				}
 
-				// If the launcher does not need an update at this point, we can continue checks for the game
-				if (!this.Checks.IsLauncherOutdated())
+				// If for some reason the game is not installed just install it again
+				if (!this.Checks.IsGameInstalled())
 				{
-					if (!this.Checks.IsPlatformAvailable(this.Configuration.SystemTarget))
-					{
-						Log.Info
-						(
-							$"The server does not provide files for platform \"{PlatformHelpers.GetCurrentPlatform()}\". " +
-							"A .provides file must be present in the platforms' root directory."
-						);
+					this.ShouldLaunchGame = true;
+					SetLauncherMode(ELauncherMode.Install, false);
+					ExecuteMainAction();
 
-						SetLauncherMode(ELauncherMode.Inactive, false);
-					}
-					else
-					{
-						if (!this.Checks.IsGameInstalled())
-						{
-							// If the game is not installed, offer to install it
-							Log.Info("The game has not yet been installed.");
-							SetLauncherMode(ELauncherMode.Install, false);
-
-							// Since the game has not yet been installed, disallow manual repairs
-							this.MenuRepairItem.Sensitive = false;
-
-							// and reinstalls
-							this.MenuReinstallItem.Sensitive = false;
-						}
-						else
-						{
-							// If the game is installed (which it should be at this point), check if it needs to be updated
-							if (this.Checks.IsGameOutdated())
-							{
-								// If it does, offer to update it
-								Log.Info("The game is outdated.");
-								SetLauncherMode(ELauncherMode.Update, false);
-							}
-							else
-							{
-								// All checks passed, so we can offer to launch the game.
-								Log.Info("All checks passed. Game can be launched.");
-								SetLauncherMode(ELauncherMode.Launch, false);
-							}
-						}
-					}
+					return;
 				}
-				else
+
+				if (this.Checks.IsLauncherOutdated())
 				{
 					// The launcher was outdated.
 					Log.Info($"The launcher is outdated. \n\tLocal version: {this.LocalVersionService.GetLocalLauncherVersion()}");
 					SetLauncherMode(ELauncherMode.Update, false);
+					ExecuteMainAction();
+
+					return;
 				}
+
+				if (this.Checks.IsGameOutdated())
+				{
+					// If it does, offer to update it
+					Log.Info("The game is outdated.");
+					this.ShouldLaunchGame = true;
+					SetLauncherMode(ELauncherMode.Update, false);
+					ExecuteMainAction();
+
+					return;
+				}
+
+				// All checks passed, so we can simply launch the game.
+				Log.Info("All checks passed. Game can be launched.");
+				SetLauncherMode(ELauncherMode.Launch, false);
+				ExecuteMainAction();
 			}
 
-			this.IsInitialized = true;
-			return Task.CompletedTask;
+			return;
 		}
 
 		private void LoadChangelog()
@@ -243,45 +270,6 @@ namespace Launchpad.Launcher.Interface
 
 			var startIter = this.ChangelogTextView.Buffer.StartIter;
 			this.ChangelogTextView.Buffer.InsertMarkup(ref startIter, markup);
-		}
-
-		private void DisplayInitialStartupDialog()
-		{
-			Log.Info("This instance is the first start of the application in this folder.");
-
-			var text = LocalizationCatalog.GetString
-			(
-				"This appears to be the first time you're starting the launcher.\n" +
-				"Is this the location where you would like to install the game?"
-			) + $"\n\n{DirectoryHelpers.GetLocalLauncherDirectory()}";
-
-			using (var shouldInstallHereDialog = new MessageDialog
-			(
-				this,
-				DialogFlags.Modal,
-				MessageType.Question,
-				ButtonsType.OkCancel,
-				text
-			))
-			{
-				if (shouldInstallHereDialog.Run() == (int)ResponseType.Ok)
-				{
-					shouldInstallHereDialog.Dispose();
-
-					// Yes, install here
-					Log.Info("User accepted installation in this directory. Installing in current directory.");
-
-					this.TagfileService.CreateLauncherTagfile();
-				}
-				else
-				{
-					shouldInstallHereDialog.Dispose();
-
-					// No, don't install here
-					Log.Info("User declined installation in this directory. Exiting...");
-					Environment.Exit(2);
-				}
-			}
 		}
 
 		private void LoadBanner()
@@ -421,6 +409,76 @@ namespace Launchpad.Launcher.Interface
 		}
 
 		/// <summary>
+		/// Executes the main action depending on state.
+		/// </summary>
+		private void ExecuteMainAction()
+		{
+			// else, run the relevant function
+			switch (this.Mode)
+			{
+				case ELauncherMode.Repair:
+				{
+					// Repair the game asynchronously
+					SetLauncherMode(ELauncherMode.Repair, true);
+					this.Game.VerifyGame();
+
+					break;
+				}
+				case ELauncherMode.Install:
+				{
+					// Install the game asynchronously
+					SetLauncherMode(ELauncherMode.Install, true);
+					this.Game.InstallGame();
+
+					break;
+				}
+				case ELauncherMode.Update:
+				{
+					if (this.Checks.IsLauncherOutdated())
+					{
+						// Update the launcher asynchronously
+						SetLauncherMode(ELauncherMode.Update, true);
+						this.Launcher.UpdateLauncher();
+					}
+					else
+					{
+						// Update the game asynchronously
+						SetLauncherMode(ELauncherMode.Update, true);
+						this.Game.UpdateGame();
+					}
+
+					break;
+				}
+				case ELauncherMode.Launch:
+				{
+					SetLauncherMode(ELauncherMode.Launch, true);
+
+					Timer launchDelay = new Timer(1000);
+					launchDelay.Elapsed += LaunchEvent;
+					launchDelay.AutoReset = false;
+					launchDelay.Start();
+					break;
+				}
+				default:
+				{
+					Log.Warn("Trying to execute an action in an invalid active mode.");
+					break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Launches the game.
+		/// </summary>
+		private void LaunchEvent(object sender, ElapsedEventArgs e)
+		{
+			if (this.Game.LaunchGame() == true)
+			{
+				Application.Quit();
+			}
+		}
+
+		/// <summary>
 		/// Runs a game repair, no matter what the state the installation is in.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
@@ -540,6 +598,7 @@ namespace Launchpad.Launcher.Interface
 				this.MainProgressBar.Text = string.Empty;
 
 				SetLauncherMode(ELauncherMode.Repair, false);
+				ExecuteMainAction();
 			});
 		}
 
@@ -555,7 +614,82 @@ namespace Launchpad.Launcher.Interface
 				switch (this.Mode)
 				{
 					case ELauncherMode.Install:
+					{
+						using (var failDialog = new MessageDialog
+						(
+							this,
+							DialogFlags.Modal,
+							MessageType.Question,
+							ButtonsType.YesNo,
+							//LocalizationCatalog.GetString("Installation failed. Would you like to retry?")
+							LocalizationCatalog.GetString("The game failed to launch. Try repairing the installation.")
+						))
+						{
+							if (failDialog.Run() == (int)ResponseType.Yes)
+							{
+								SetLauncherMode(ELauncherMode.Install, false);
+								ExecuteMainAction();
+							}
+							else
+							{
+								Application.Quit();
+							}
+						}
+						break;
+					}
+
 					case ELauncherMode.Update:
+					{
+						using (var failDialog = new Dialog
+						(
+							string.Empty,
+							this,
+							DialogFlags.Modal
+						))
+						{
+							//Label dlgText = new Label(LocalizationCatalog.GetString("Update failed. You can retry or launch the local version."));
+							Label dlgText = new Label(LocalizationCatalog.GetString("Failed to connect to the patch server. Please check your settings."));
+							Alignment container = new Alignment(0.5f, 0.5f, 1, 1);
+							container.Add(dlgText);
+							container.TopPadding = 25;
+							failDialog.Resizable = false;
+							failDialog.SetPosition(WindowPosition.CenterOnParent);
+							failDialog.ContentArea.Add(container);
+							failDialog.ContentArea.SetSizeRequest(360, 100);
+							failDialog.ContentArea.CenterWidget = container;
+							failDialog.AddButton("Launch", 1);
+							failDialog.AddButton("Retry", 2);
+							failDialog.AddButton("Quit", 3);
+							failDialog.ActionArea.LayoutStyle = ButtonBoxStyle.Expand;
+							failDialog.DefaultResponse = (ResponseType)1;
+
+							failDialog.ShowAll();
+							var dlgRes = failDialog.Run();
+							switch (dlgRes)
+							{
+								case 1:
+								{
+									SetLauncherMode(ELauncherMode.Launch, false);
+									ExecuteMainAction();
+									break;
+								}
+								case 2:
+								{
+									SetLauncherMode(ELauncherMode.Update, false);
+									ExecuteMainAction();
+									break;
+								}
+								case 3:
+								case (int)ResponseType.DeleteEvent:
+								{
+									Application.Quit();
+									break;
+								}
+							}
+						}
+						break;
+					}
+
 					case ELauncherMode.Repair:
 					{
 						// Set the mode to the same as it was, but no longer in progress.
@@ -564,6 +698,7 @@ namespace Launchpad.Launcher.Interface
 						SetLauncherMode(this.Mode, false);
 						break;
 					}
+
 					default:
 					{
 						// Other cases (such as Launch) will go to the default mode of Repair.
@@ -615,6 +750,7 @@ namespace Launchpad.Launcher.Interface
 					case ELauncherMode.Repair:
 					{
 						this.MainProgressBar.Text = LocalizationCatalog.GetString("Repair finished");
+						this.ShouldLaunchGame = true;
 						break;
 					}
 					default:
@@ -624,7 +760,11 @@ namespace Launchpad.Launcher.Interface
 					}
 				}
 
-				SetLauncherMode(ELauncherMode.Launch, false);
+				if (this.ShouldLaunchGame == true)
+				{
+					SetLauncherMode(ELauncherMode.Launch, false);
+					ExecuteMainAction();
+				}
 			});
 		}
 

@@ -204,13 +204,15 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <inheritdoc />
 		public override void VerifyModule(EModule module)
 		{
+			RefreshModuleManifest(module);
+
 			var manifest = this.FileManifestHandler.GetManifest((EManifestType)module, false);
 			var brokenFiles = new List<ManifestEntry>();
 
 			if (manifest == null)
 			{
 				Log.Error($"No manifest was found when verifying the module \"{module}\". The server files may be inaccessible or missing.");
-				OnModuleInstallationFailed(module);
+				//OnModuleInstallationFailed(module);
 				return;
 			}
 

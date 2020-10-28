@@ -180,7 +180,8 @@ namespace Launchpad.Launcher.Handlers
 		/// <summary>
 		/// Launches the game.
 		/// </summary>
-		public void LaunchGame()
+		/// <returns>true if the game launched; otherwise, false.</returns>
+		public bool LaunchGame()
 		{
 			try
 			{
@@ -234,6 +235,7 @@ namespace Launchpad.Launcher.Handlers
 				}
 
 				gameProcess.Start();
+				return true;
 			}
 			catch (FileNotFoundException fex)
 			{
@@ -241,12 +243,14 @@ namespace Launchpad.Launcher.Handlers
 				Log.Warn("If the game executable is there, try overriding the executable name in the configuration file.");
 
 				OnGameLaunchFailed();
+				return false;
 			}
 			catch (IOException ioex)
 			{
 				Log.Warn($"Game launch failed (IOException): {ioex.Message}");
 
 				OnGameLaunchFailed();
+				return false;
 			}
 		}
 
