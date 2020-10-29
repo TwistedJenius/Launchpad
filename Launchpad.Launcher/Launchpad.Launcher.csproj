@@ -55,7 +55,7 @@
     <EmbeddedResource Include="Interface\Launchpad.glade" />
     <None Remove="Interface\styles.css" />
     <EmbeddedResource Include="Interface\styles.css" />
-	<None Remove="Interface\bg.jpg" />
+	<None Remove="Resources\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,11 +66,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <InProject>false</InProject>
     </Content>
+    <EmbeddedResource Remove="Resources\bg.jpg" />
     <Content Include="../LICENSE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <InProject>false</InProject>
     </Content>
-	<None Remove="Resources\img\bg.jpg" />
+    <None Remove="Resources\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +87,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Launchpad.Common\Launchpad.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <Target Name="CopyGTK" AfterTargets="Build">

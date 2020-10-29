@@ -69,7 +69,7 @@ namespace Launchpad.Launcher.Interface
 		public static MainWindow Create()
 		{
 			var stylesProvider = new CssProvider();
-			Assembly.GetExecutingAssembly().GetManifestResourceStream("Launchpad.Launcher.Resources.img.bg.jpg");
+
 			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Launchpad.Launcher.Interface.styles.css"))
 			{
 				if (stream != null)

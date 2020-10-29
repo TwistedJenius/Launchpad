@@ -121,6 +121,7 @@
         <e p="Resources" t="Include">
           <e p="Icon.ico" t="Include" />
           <e p="Icon.png" t="Include" />
+          <e p="bg.jpg" t="Include" />
           <e p="launchpad_update.bat" t="Include" />
           <e p="launchpad_update.sh" t="Include" />
         </e>

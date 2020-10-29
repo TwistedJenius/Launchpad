@@ -147,7 +147,7 @@ namespace Launchpad.Launcher.Interface
 				return Task.CompletedTask;
 			}
 
-			//this.StatusLabel.Text = LocalizationCatalog.GetString("Checking for updates...");
+			// this.StatusLabel.Text = LocalizationCatalog.GetString("Checking for updates...");
 
 			if (this.Checks.CanPatch())
 			{
@@ -621,7 +621,7 @@ namespace Launchpad.Launcher.Interface
 							DialogFlags.Modal,
 							MessageType.Question,
 							ButtonsType.YesNo,
-							//LocalizationCatalog.GetString("Installation failed. Would you like to retry?")
+							// LocalizationCatalog.GetString("Installation failed. Would you like to retry?")
 							LocalizationCatalog.GetString("The game failed to launch. Try repairing the installation.")
 						))
 						{
@@ -647,7 +647,7 @@ namespace Launchpad.Launcher.Interface
 							DialogFlags.Modal
 						))
 						{
-							//Label dlgText = new Label(LocalizationCatalog.GetString("Update failed. You can retry or launch the local version."));
+							// Label dlgText = new Label(LocalizationCatalog.GetString("Update failed. You can retry or launch the local version."));
 							Label dlgText = new Label(LocalizationCatalog.GetString("Failed to connect to the patch server. Please check your settings."));
 							Alignment container = new Alignment(0.5f, 0.5f, 1, 1);
 							container.Add(dlgText);

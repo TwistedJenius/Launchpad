@@ -5,7 +5,8 @@ Base button colors
 Main Window background
  */
 .bg {
-  background: url("http://fast.wadimich.ru/custom/bg.jpg") no-repeat 0 100% transparent;
+  background: url("./Resources/bg.jpg") no-repeat 0 100% transparent;
+  background-color: green;
   background-size: cover;
 }
 /**
