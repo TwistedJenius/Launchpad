@@ -20,6 +20,7 @@
     <Version>2.0.0</Version>
     <Description>An open-source launcher for your games.</Description>
     <Authors>Jarl Gullberg;jax</Authors>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <Prefer32bit>true</Prefer32bit>
@@ -55,7 +56,6 @@
     <EmbeddedResource Include="Interface\Launchpad.glade" />
     <None Remove="Interface\styles.css" />
     <EmbeddedResource Include="Interface\styles.css" />
-	<None Remove="Resources\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,12 +66,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <InProject>false</InProject>
     </Content>
-    <EmbeddedResource Remove="Resources\bg.jpg" />
     <Content Include="../LICENSE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <InProject>false</InProject>
     </Content>
-    <None Remove="Resources\bg.jpg" />
   </ItemGroup>
 
   <ItemGroup>

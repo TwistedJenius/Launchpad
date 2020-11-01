@@ -248,8 +248,11 @@ namespace Launchpad.Launcher.Interface
 
 				// All checks passed, so we can simply launch the game.
 				Log.Info("All checks passed. Game can be launched.");
+				this.ShouldLaunchGame = true;
 				SetLauncherMode(ELauncherMode.Launch, false);
 				ExecuteMainAction();
+
+				return;
 			}
 
 			return;
@@ -413,6 +416,8 @@ namespace Launchpad.Launcher.Interface
 		/// </summary>
 		private void ExecuteMainAction()
 		{
+			Log.Info($"Executing \"{this.Mode}\" action.");
+
 			// else, run the relevant function
 			switch (this.Mode)
 			{

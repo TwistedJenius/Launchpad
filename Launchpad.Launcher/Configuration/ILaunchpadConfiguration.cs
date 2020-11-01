@@ -37,7 +37,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the address where the changelog is hosted.
 		/// </summary>
-		[Option(Alias = "Launcher.ChangelogAddress", DefaultValue = "http://www.example.com/launchpad/launcher/changelog.pango")]
+		[Option(Alias = "Launcher.ChangelogAddress", DefaultValue = "http://localhost/ftp/launcher/changelog.pango")]
 		Uri ChangelogAddress { get; set; }
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the path to the game's executable, relative to the launcher.
 		/// </summary>
-		[Option(Alias = "Game.ExecutablePath", DefaultValue = "TerrorChasm.exe")]
+		[Option(Alias = "Game.ExecutablePath", DefaultValue = "TerrorChasm/TerrorChasm.exe")]
 		string ExecutablePath { get; set; }
 
 		// Remote section
@@ -67,7 +67,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the address of the remote server.
 		/// </summary>
-		[Option(Alias = "Remote.Address", DefaultValue = "http://localhost/")]
+		[Option(Alias = "Remote.Address", DefaultValue = "http://localhost/ftp")]
 		Uri RemoteAddress { get; set; }
 
 		/// <summary>

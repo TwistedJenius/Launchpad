@@ -2,15 +2,16 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Launchpad"
-#define MyAppVersion "0.2.4.34678"
-#define MyAppPublisher "Jarl Gullberg"
-#define MyAppURL "https://github.com/Nihlus/Launchpad/"
+#define MyAppVersion "2.0.0.0"
+#define MyAppPublisher "Twisted Jenius LLC"
+#define MyAppURL "https://github.com/TwistedJenius/Launchpad"
 #define MyAppExeName "Launchpad.exe"
+#define GtkSharp "gtk-sharp-2.12.45.msi"
 
 ;
- ; Fill this out with the path to your built launchpad binaries.
+; Fill this out with the path to your built launchpad binaries.
 ;
-#define LaunchpadReleaseDir "..\..\release\launchpad-0.2.4.34678\bin"
+#define LaunchpadReleaseDir "..\..\Launchpad.Launcher\bin\x64\Release\net462"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -24,12 +25,12 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={commonpf64}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-OutputDir=C:\Users\Jarl\Desktop
+OutputDir=C:\Users\Vicious\Desktop
 OutputBaseFilename={#MyAppName}-setup-{#MyAppVersion}
-Compression=lzma
+Compression=lzma2/ultra
 SolidCompression=yes
 UninstallDisplayIcon={app}\{#MyAppExeName}
 PrivilegesRequired=admin
@@ -47,15 +48,16 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "{#LaunchpadReleaseDir}\Launchpad.exe"; DestDir: "{app}";
 Source: "{#LaunchpadReleaseDir}\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
 ; Extra libraries - GTK# must be included.
-Source: "{#LaunchpadReleaseDir}\gtk-sharp-2.12.38.msi"; DestDir: "{tmp}";
+Source: "{#LaunchpadReleaseDir}\{#GtkSharp}"; DestDir: "{tmp}";
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{group}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\{#MyAppExeName}"
 
 [Dirs]
 Name: "{app}\"; Permissions: everyone-modify
 
 [Run]
-Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\gtk-sharp-2.12.38.msi"" /qn"; Flags: runascurrentuser;
+Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\{#GtkSharp}"" /qn"; Flags: runascurrentuser;
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
