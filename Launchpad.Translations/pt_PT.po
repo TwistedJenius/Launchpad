@@ -23,23 +23,23 @@ msgstr ""
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:625
 #, csharp-format
-msgid "Verifying file {0} ({1} of {2})"
-msgstr "Verificar ficheiro {0} ({1} of {2})"
+msgid "Verifying file ({1} of {2}): {0}"
+msgstr "Verificar ficheiro ({1} de {2}): {0}"
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:637
 #, csharp-format
-msgid "Updating file {0} ({1} of {2})"
-msgstr "Actualizando ficheiros {0} ({1} of {2})"
+msgid "Updating file ({1} of {2}): {0}"
+msgstr "Actualizando ficheiros ({1} de {2}): {0}"
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:649
 #, csharp-format
-msgid "Downloading file {0} ({1} of {2})"
-msgstr "A transferir ficheiros {0} ({1} of {2})"
+msgid "Downloading file ({1} of {2}): {0}"
+msgstr "A transferir ficheiros ({1} de {2}): {0}"
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:661
 #, csharp-format
-msgid "Downloading {0}: {1} out of {2}"
-msgstr "Transferindo {0}: {1} out of {2}"
+msgid "Downloading ({1} of {2}): {0}"
+msgstr "Transferindo ({1} de {2}): {0}"
 
 #: Launchpad.Launcher/Interface/MainWindow.cs:108
 #: Launchpad.Launcher/gtk-gui/Launchpad.Launcher.Interface.MainWindow.cs:90

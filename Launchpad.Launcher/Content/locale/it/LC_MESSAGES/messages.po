@@ -23,22 +23,22 @@ msgstr ""
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:625
 #, csharp-format
-msgid "Verifying file {0} ({1} of {2})"
+msgid "Verifying file ({1} of {2}): {0}"
 msgstr ""
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:637
 #, csharp-format
-msgid "Updating file {0} ({1} of {2})"
+msgid "Updating file ({1} of {2}): {0}"
 msgstr ""
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:649
 #, csharp-format
-msgid "Downloading file {0} ({1} of {2})"
+msgid "Downloading file ({1} of {2}): {0}"
 msgstr ""
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:661
 #, csharp-format
-msgid "Downloading {0}: {1} out of {2}"
+msgid "Downloading ({1} of {2}): {0}"
 msgstr ""
 
 #: Launchpad.Launcher/Interface/MainWindow.cs:108

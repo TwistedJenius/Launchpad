@@ -782,7 +782,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <param name="totalFiles">Total files to download.</param>
 		protected virtual string GetVerifyIndicatorLabelMessage(string currentFilename, int verifiedFiles, int totalFiles)
 		{
-			return LocalizationCatalog.GetString("Verifying file {0} ({1} of {2})", currentFilename, verifiedFiles, totalFiles);
+			return LocalizationCatalog.GetString("Verifying file ({1} of {2}): {0}", currentFilename, verifiedFiles, totalFiles);
 		}
 
 		/// <summary>
@@ -794,7 +794,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <param name="totalFiles">Total files that are to be updated.</param>
 		protected virtual string GetUpdateIndicatorLabelMessage(string currentFilename, int updatedFiles, int totalFiles)
 		{
-			return LocalizationCatalog.GetString("Updating file {0} ({1} of {2})", currentFilename, updatedFiles, totalFiles);
+			return LocalizationCatalog.GetString("Updating file ({1} of {2}): {0}", currentFilename, updatedFiles, totalFiles);
 		}
 
 		/// <summary>
@@ -806,7 +806,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <param name="totalFiles">Total files to download.</param>
 		protected virtual string GetDownloadIndicatorLabelMessage(string currentFilename, int downloadedFiles, int totalFiles)
 		{
-			return LocalizationCatalog.GetString("Downloading file {0} ({1} of {2})", currentFilename, downloadedFiles, totalFiles);
+			return LocalizationCatalog.GetString("Downloading file ({1} of {2}): {0}", currentFilename, downloadedFiles, totalFiles);
 		}
 
 		/// <summary>
@@ -818,7 +818,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <param name="totalBytes">Total bytes.</param>
 		protected virtual string GetDownloadProgressBarMessage(string filename, long downloadedBytes, long totalBytes)
 		{
-			return LocalizationCatalog.GetString("Downloading {0}: {1} out of {2}", filename, downloadedBytes, totalBytes);
+			return LocalizationCatalog.GetString("Downloading ({1} of {2}): {0}", filename, downloadedBytes, totalBytes);
 		}
 	}
 }

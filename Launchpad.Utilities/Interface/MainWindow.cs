@@ -65,7 +65,7 @@ namespace Launchpad.Utilities.Interface
 			(
 				e =>
 				{
-					var progressString = this.LocalizationCatalog.GetString("Hashing {0} : {1} out of {2}");
+					var progressString = this.LocalizationCatalog.GetString("Hashing ({1} of {2}): {0}");
 					this.StatusLabel.Text = string.Format(progressString, e.Filepath, e.CompletedFiles, e.TotalFiles);
 
 					this.MainProgressBar.Fraction = e.CompletedFiles / (double)e.TotalFiles;

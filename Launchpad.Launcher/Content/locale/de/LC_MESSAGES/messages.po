@@ -23,23 +23,23 @@ msgstr ""
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:625
 #, csharp-format
-msgid "Verifying file {0} ({1} of {2})"
-msgstr "Überprüfe Datei {0} ({1} von {2})"
+msgid "Verifying file ({1} of {2}): {0}"
+msgstr "Überprüfe Datei ({1} von {2}): {0}"
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:637
 #, csharp-format
-msgid "Updating file {0} ({1} of {2})"
-msgstr "Aktualisiere Datei {0} ({1} von {2})"
+msgid "Updating file ({1} of {2}): {0}"
+msgstr "Aktualisiere Datei ({1} von {2}): {0}"
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:649
 #, csharp-format
-msgid "Downloading file {0} ({1} of {2})"
-msgstr "Lade Datei {0} herunter ({1} von {2})"
+msgid "Downloading file ({1} of {2}): {0}"
+msgstr "Lade Datei herunter ({1} von {2}): {0}"
 
 #: Launchpad.Launcher/Handlers/Protocols/ManifestBasedProtocolHandler.cs:661
 #, csharp-format
-msgid "Downloading {0}: {1} out of {2}"
-msgstr "Lade {0} herunter: {1} von {2}"
+msgid "Downloading ({1} of {2}): {0}"
+msgstr "Lade herunter ({1} von {2}): {0}"
 
 #: Launchpad.Launcher/Interface/MainWindow.cs:108
 #: Launchpad.Launcher/gtk-gui/Launchpad.Launcher.Interface.MainWindow.cs:90
