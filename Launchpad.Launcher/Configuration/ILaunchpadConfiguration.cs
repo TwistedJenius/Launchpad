@@ -58,7 +58,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the path to the game's executable, relative to the launcher.
 		/// </summary>
-		[Option(Alias = "Game.ExecutablePath", DefaultValue = "TerrorChasm/TerrorChasm.exe")]
+		[Option(Alias = "Game.ExecutablePath", DefaultValue = "TerrorChasm\\TerrorChasm.exe")]
 		string ExecutablePath { get; set; }
 
 		// Remote section

@@ -228,10 +228,10 @@ namespace Launchpad.Common.Handlers.Manifest
 		{
 			if (manifestType == EManifestType.Launchpad)
 			{
-				return $"{this.RemoteURL.LocalPath}/launcher/{manifestType}Manifest.checksum";
+				return $"{this.RemoteURL}/launcher/{manifestType}Manifest.checksum";
 			}
 
-			return $"{this.RemoteURL.LocalPath}/game/{this.SystemTarget}/{manifestType}Manifest.checksum";
+			return $"{this.RemoteURL}/game/{this.SystemTarget}/{manifestType}Manifest.checksum";
 		}
 	}
 }
