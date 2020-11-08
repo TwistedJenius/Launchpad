@@ -204,12 +204,17 @@ namespace Launchpad.Launcher.Interface
 			else
 			{
 				// If we can connect, proceed with the rest of our checks.
-				if (ChecksHandler.IsInitialStartup() && !this.Checks.IsGameInstalled())
+				if (ChecksHandler.IsInitialStartup())
 				{
 					Log.Info("This instance is the first start of the application in this folder.");
 					this.TagfileService.CreateLauncherTagfile();
-					this.ShouldLaunchGame = true;
-					SetLauncherMode(ELauncherMode.Install, false);
+				}
+
+				if (this.Checks.IsLauncherOutdated())
+				{
+					// The launcher was outdated.
+					Log.Info($"The launcher is outdated. \n\tLocal version: {this.LocalVersionService.GetLocalLauncherVersion()}");
+					SetLauncherMode(ELauncherMode.Update, false);
 					ExecuteMainAction();
 
 					return;
@@ -220,16 +225,6 @@ namespace Launchpad.Launcher.Interface
 				{
 					this.ShouldLaunchGame = true;
 					SetLauncherMode(ELauncherMode.Install, false);
-					ExecuteMainAction();
-
-					return;
-				}
-
-				if (this.Checks.IsLauncherOutdated())
-				{
-					// The launcher was outdated.
-					Log.Info($"The launcher is outdated. \n\tLocal version: {this.LocalVersionService.GetLocalLauncherVersion()}");
-					SetLauncherMode(ELauncherMode.Update, false);
 					ExecuteMainAction();
 
 					return;

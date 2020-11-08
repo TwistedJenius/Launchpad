@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.0.1</Version>
+    <Version>2.0.0.3</Version>
     <Description>An open-source launcher for your games.</Description>
     <Authors>Jarl Gullberg;jax</Authors>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.13.7" />
-	<PackageReference Include="GioSharp" Version="3.22.25.24" />
+    <PackageReference Include="GioSharp" Version="3.22.25.24" />
     <PackageReference Include="GtkSharp" Version="3.22.25.24" />
     <PackageReference Include="NLog" Version="4.6.6" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0002" />
