@@ -126,7 +126,7 @@ namespace Launchpad.Launcher.Utility
 		public static string GetRemoteLauncherBinariesPath()
 		{
 			var config = ConfigHandler.Instance.Configuration;
-			return $"{config.RemoteAddress}/launcher/bin/";
+			return $"{config.RemoteAddress}launcher/bin/";
 		}
 
 		/// <summary>
@@ -139,7 +139,7 @@ namespace Launchpad.Launcher.Utility
 		{
 			var config = ConfigHandler.Instance.Configuration;
 
-			return $"{config.RemoteAddress}/launcher/LauncherVersion.txt";
+			return $"{config.RemoteAddress}launcher/LauncherVersion.txt";
 		}
 
 		/// <summary>
@@ -149,7 +149,7 @@ namespace Launchpad.Launcher.Utility
 		public static string GetRemoteGamePath()
 		{
 			var config = ConfigHandler.Instance.Configuration;
-			return $"{config.RemoteAddress}/game/{config.SystemTarget}/bin/";
+			return $"{config.RemoteAddress}game/{config.SystemTarget}/bin/";
 		}
 	}
 }

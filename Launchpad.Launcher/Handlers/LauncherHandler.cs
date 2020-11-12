@@ -110,17 +110,19 @@ namespace Launchpad.Launcher.Handlers
 		/// <returns><c>true</c> if the changelog can be accessed; otherwise, <c>false</c>.</returns>
 		public static bool CanAccessStandardChangelog()
 		{
-			if (string.IsNullOrEmpty(Configuration.ChangelogAddress.AbsoluteUri))
+			if (string.IsNullOrEmpty(Configuration.ChangelogAddress))
 			{
 				return false;
 			}
 
-			var address = Configuration.ChangelogAddress;
+			var address = $"{Configuration.RemoteAddress}{Configuration.ChangelogAddress}";
 
 			// Only allow HTTP URIs
-			if (!(address.Scheme == "http" || address.Scheme == "https"))
+			if (!(Configuration.RemoteAddress.Scheme == "http" || Configuration.RemoteAddress.Scheme == "https"))
 			{
-				return false;
+				UriBuilder builder = new UriBuilder(address);
+				builder.Scheme = "http";
+				address = $"{builder.Uri}";
 			}
 
 			var headRequest = (HttpWebRequest)WebRequest.Create(address);

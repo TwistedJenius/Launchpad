@@ -37,8 +37,8 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the address where the changelog is hosted.
 		/// </summary>
-		[Option(Alias = "Launcher.ChangelogAddress", DefaultValue = "http://localhost/ftp/launcher/changelog.pango")]
-		Uri ChangelogAddress { get; set; }
+		[Option(Alias = "Launcher.ChangelogAddress", DefaultValue = "launcher/changelog.pango")]
+		string ChangelogAddress { get; set; }
 
 		/// <summary>
 		/// Gets or sets the system target of the launcher.
@@ -67,7 +67,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the address of the remote server.
 		/// </summary>
-		[Option(Alias = "Remote.Address", DefaultValue = "http://localhost/ftp")]
+		[Option(Alias = "Remote.Address", DefaultValue = "http://terror-chasm.s3-website.us-east-2.amazonaws.com")]
 		Uri RemoteAddress { get; set; }
 
 		/// <summary>

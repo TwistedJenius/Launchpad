@@ -96,7 +96,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <inheritdoc />
 		public override bool IsPlatformAvailable(ESystemTarget platform)
 		{
-			var remote = $"{this.Configuration.RemoteAddress}/game/{platform}/.provides";
+			var remote = $"{this.Configuration.RemoteAddress}game/{platform}/.provides";
 
 			return DoesRemoteDirectoryOrFileExist(remote);
 		}
@@ -104,14 +104,14 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <inheritdoc />
 		public override string GetChangelogMarkup()
 		{
-			var changelogURL = $"{this.Configuration.RemoteAddress}/launcher/changelog.pango";
+			var changelogURL = $"{this.Configuration.RemoteAddress}{this.Configuration.ChangelogAddress}";
 			return ReadRemoteFile(changelogURL);
 		}
 
 		/// <inheritdoc />
 		public override bool CanProvideBanner()
 		{
-			var bannerURL = $"{this.Configuration.RemoteAddress}/launcher/banner.png";
+			var bannerURL = $"{this.Configuration.RemoteAddress}launcher/banner.png";
 
 			return DoesRemoteDirectoryOrFileExist(bannerURL);
 		}
@@ -119,7 +119,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <inheritdoc />
 		public override Image<Rgba32> GetBanner()
 		{
-			var bannerURL = $"{this.Configuration.RemoteAddress}/launcher/banner.png";
+			var bannerURL = $"{this.Configuration.RemoteAddress}launcher/banner.png";
 			var localBannerPath = Path.Combine(Path.GetTempPath(), "banner.png");
 
 			DownloadRemoteFile(bannerURL, localBannerPath);
@@ -300,7 +300,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		{
 			if (!remotePath.StartsWith(this.Configuration.RemoteAddress.AbsoluteUri))
 			{
-				remotePath = $"{this.Configuration.RemoteAddress}/{remotePath}";
+				remotePath = $"{this.Configuration.RemoteAddress}{remotePath}";
 			}
 
 			try

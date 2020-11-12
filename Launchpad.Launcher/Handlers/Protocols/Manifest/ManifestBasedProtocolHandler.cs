@@ -464,7 +464,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 			}
 
 			// Build the access strings
-			var remoteURL = $"{baseRemoteURL}/{fileEntry.RelativePath}";
+			var remoteURL = $"{baseRemoteURL}{fileEntry.RelativePath}";
 			var localPath = Path.Combine(baseLocalPath, fileEntry.RelativePath);
 
 			// Make sure we have a directory to put the file in
@@ -761,7 +761,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <returns>The remote game version.</returns>
 		protected virtual Version GetRemoteGameVersion()
 		{
-			var remoteVersionPath = $"{this.Configuration.RemoteAddress}/game/{this.Configuration.SystemTarget}/bin/GameVersion.txt";
+			var remoteVersionPath = $"{this.Configuration.RemoteAddress}game/{this.Configuration.SystemTarget}/bin/GameVersion.txt";
 			var remoteVersion = ReadRemoteFile(remoteVersionPath).RemoveLineSeparatorsAndNulls();
 
 			if (Version.TryParse(remoteVersion, out var version))
