@@ -67,6 +67,7 @@ namespace Launchpad.Launcher.Configuration
 		/// <summary>
 		/// Gets or sets the address of the remote server.
 		/// </summary>
+		// [Option(Alias = "Remote.Address", DefaultValue = "http://localhost/ftp/")]
 		[Option(Alias = "Remote.Address", DefaultValue = "http://terror-chasm.s3-website.us-east-2.amazonaws.com")]
 		Uri RemoteAddress { get; set; }
 
