@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Gtk;
 using Launchpad.Common.Enums;
 using Launchpad.Utilities.Handlers;
@@ -116,6 +117,73 @@ namespace Launchpad.Utilities.Interface
 
 		private async void OnGenerateLaunchpadManifestButtonClicked(object sender, EventArgs e)
 		{
+			var targetDirectory = this.FolderChooser.Filename;
+			var parentDirectory = Directory.GetParent(targetDirectory).ToString();
+			
+			if (!Directory.GetFiles(parentDirectory).Any(s => s.Contains("LauncherVersion.txt")))
+			{
+				var versInfo = new Version("2.0.0");
+
+				if (Directory.GetFiles(targetDirectory).Any(s => s.Contains("Launchpad.exe")))
+				{
+					versInfo= new Version(FileVersionInfo.GetVersionInfo(SysPath.Combine(targetDirectory, "Launchpad.exe")).FileVersion.ToString());
+				}
+
+				var dialog = new MessageDialog
+				(
+					this,
+					DialogFlags.Modal,
+					MessageType.Question,
+					ButtonsType.YesNo,
+					this.LocalizationCatalog.GetString
+					(
+						"No LauncherVersion.txt file could be found in the target directory.\n" +
+						"Would you like to add one? The version will be \"{0}\".", versInfo.ToString()
+					)
+				);
+
+				if (dialog.Run() == (int) ResponseType.Yes)
+				{
+					var launcherVersionPath = SysPath.Combine(parentDirectory, "LauncherVersion.txt");
+					File.WriteAllText(launcherVersionPath, versInfo.ToString());
+
+					dialog.Dispose();
+				}
+				else
+				{
+					dialog.Dispose();
+				}
+			}
+			else if (Directory.GetFiles(targetDirectory).Any(s => s.Contains("Launchpad.exe")))
+			{
+				var versInfo= new Version(FileVersionInfo.GetVersionInfo(SysPath.Combine(targetDirectory, "Launchpad.exe")).FileVersion.ToString());
+
+				var dialog = new MessageDialog
+				(
+					this,
+					DialogFlags.Modal,
+					MessageType.Question,
+					ButtonsType.YesNo,
+					this.LocalizationCatalog.GetString
+					(
+						"Would you like to update the version number in the LauncherVersion.txt file? \n" +
+						"The version will be \"{0}\".", versInfo.ToString()
+					)
+				);
+
+				if (dialog.Run() == (int) ResponseType.Yes)
+				{
+					var launcherVersionPath = SysPath.Combine(parentDirectory, "LauncherVersion.txt");
+					File.WriteAllText(launcherVersionPath, versInfo.ToString());
+
+					dialog.Dispose();
+				}
+				else
+				{
+					dialog.Dispose();
+				}
+			}
+
 			await GenerateManifestAsync(EManifestType.Launchpad);
 		}
 
