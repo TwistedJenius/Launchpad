@@ -57,6 +57,20 @@ namespace Launchpad.Utilities.Handlers
 			var manifestPath = Path.Combine(parentDirectory, $"{manifestType}Manifest.txt");
 			var manifestChecksumPath = Path.Combine(parentDirectory, $"{manifestType}Manifest.checksum");
 
+			var oldManifestPath = manifestPath + ".old";
+
+			// Delete the old backup (if there is one)
+			if (File.Exists(oldManifestPath))
+			{
+				File.Delete(oldManifestPath);
+			}
+
+			// Create a backup of the old manifest so that we can compare them when updating the game
+			if (File.Exists(manifestPath))
+			{
+				File.Move(manifestPath, oldManifestPath);
+			}
+
 			return Task.Run
 			(
 				async () =>
