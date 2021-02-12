@@ -41,6 +41,8 @@ namespace Launchpad.Utilities.Interface
 		/// </summary>
 		private readonly ManifestGenerationHandler Manifest = new ManifestGenerationHandler();
 
+		private readonly PatchGenerationHandler Handler = new PatchGenerationHandler();
+
 		/// <summary>
 		/// The localization catalog.
 		/// </summary>
@@ -193,6 +195,7 @@ namespace Launchpad.Utilities.Interface
 
 			this.GenerateGameManifestButton.Sensitive = false;
 			this.GenerateLaunchpadManifestButton.Sensitive = false;
+			this.GeneratePatchFolderButton.Sensitive = false;
 
 			var targetDirectory = this.FolderChooser.Filename;
 
@@ -216,6 +219,43 @@ namespace Launchpad.Utilities.Interface
 
 			this.GenerateGameManifestButton.Sensitive = true;
 			this.GenerateLaunchpadManifestButton.Sensitive = true;
+			this.GeneratePatchFolderButton.Sensitive = true;
+		}
+
+		private void OnGeneratePatchFolderButtonClicked(object sender, EventArgs e)
+		{
+			var targetDirectory = this.FolderChooser.Filename;
+
+			var dialog = new MessageDialog
+			(
+				this,
+				DialogFlags.Modal,
+				MessageType.Question,
+				ButtonsType.YesNo,
+				this.LocalizationCatalog.GetString
+				(
+					"Would you like to zip the patch files?"
+				)
+			);
+
+			this.GenerateGameManifestButton.Sensitive = false;
+			this.GenerateLaunchpadManifestButton.Sensitive = false;
+			this.GeneratePatchFolderButton.Sensitive = false;
+
+			if (dialog.Run() == (int) ResponseType.Yes)
+			{
+				this.Handler.GroupPatchedFiles(targetDirectory, true);
+				dialog.Dispose();
+			}
+			else
+			{
+				this.Handler.GroupPatchedFiles(targetDirectory, false);
+				dialog.Dispose();
+			}
+
+			this.GenerateGameManifestButton.Sensitive = true;
+			this.GenerateLaunchpadManifestButton.Sensitive = true;
+			this.GeneratePatchFolderButton.Sensitive = true;
 		}
 	}
 }

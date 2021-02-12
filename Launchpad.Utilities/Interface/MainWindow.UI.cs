@@ -43,6 +43,7 @@ namespace Launchpad.Utilities.Interface
 
 		[UIElement] private readonly Button GenerateLaunchpadManifestButton;
 		[UIElement] private readonly Button GenerateGameManifestButton;
+		[UIElement] private readonly Button GeneratePatchFolderButton;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MainWindow"/> class, loading its interface definition from file.
@@ -65,6 +66,7 @@ namespace Launchpad.Utilities.Interface
 
 			this.GenerateLaunchpadManifestButton.Clicked += OnGenerateLaunchpadManifestButtonClicked;
 			this.GenerateGameManifestButton.Clicked += OnGenerateGameManifestButtonClicked;
+			this.GeneratePatchFolderButton.Clicked += OnGeneratePatchFolderButtonClicked;
 		}
 
 		/// <summary>
