@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TerrorChasm"
-#define MyAppVersion "0.2.0.13"
+#define MyAppVersion "2.1.1.0"
 #define MyAppPublisher "Twisted Jenius LLC"
 #define MyAppURL "https://github.com/TwistedJenius/Launchpad"
 #define MyAppExeName "Launchpad.exe"

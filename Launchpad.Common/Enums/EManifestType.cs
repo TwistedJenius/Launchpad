@@ -40,6 +40,11 @@ namespace Launchpad.Common.Enums
 		/// <summary>
 		/// A game manifest.
 		/// </summary>
-		Game = 2
+		Game = 2,
+
+		/// <summary>
+		/// A deleted manifest.
+		/// </summary>
+		Deleted = 3,
 	}
 }

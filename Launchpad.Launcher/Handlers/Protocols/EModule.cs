@@ -35,6 +35,11 @@ namespace Launchpad.Launcher.Handlers.Protocols
 		/// <summary>
 		/// The managed game.
 		/// </summary>
-		Game = 2
+		Game = 2,
+
+		/// <summary>
+		/// Files that are deleted.
+		/// </summary>
+		Deleted = 3,
 	}
 }

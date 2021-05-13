@@ -58,6 +58,8 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// </summary>
 		private readonly ManifestHandler FileManifestHandler;
 
+		private readonly DeletionHandler FileDeletionHandler;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ManifestBasedProtocolHandler"/> class.
 		/// </summary>
@@ -69,6 +71,8 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 				this.Configuration.RemoteAddress,
 				this.Configuration.SystemTarget
 			);
+
+			this.FileDeletionHandler = new DeletionHandler();
 		}
 
 		/// <inheritdoc />
@@ -122,6 +126,9 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 
 					manifest = this.FileManifestHandler.GetManifest(EManifestType.Game, false);
 					oldManifest = this.FileManifestHandler.GetManifest(EManifestType.Game, true);
+
+					// Before we download any new/updated files, see if we need to delete old ones
+					FileDeletionHandler.PerformDeletionMode(FileManifestHandler, this);
 					break;
 				}
 				default:
@@ -212,9 +219,13 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 			if (manifest == null)
 			{
 				Log.Error($"No manifest was found when verifying the module \"{module}\". The server files may be inaccessible or missing.");
-				//OnModuleInstallationFailed(module);
+
+				// OnModuleInstallationFailed(module);
 				return;
 			}
+
+			// Before we download any new/updated files, see if we need to delete old ones
+			FileDeletionHandler.PerformDeletionMode(FileManifestHandler, this);
 
 			try
 			{
@@ -573,6 +584,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 			{
 				case EModule.Launcher:
 				case EModule.Game:
+				case EModule.Deleted:
 				{
 					manifestPath = this.FileManifestHandler.GetManifestPath((EManifestType)module, false);
 					break;
@@ -617,6 +629,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 			{
 				case EModule.Launcher:
 				case EModule.Game:
+				case EModule.Deleted:
 				{
 					checksum = ReadRemoteFile(this.FileManifestHandler.GetManifestChecksumURL((EManifestType)module)).RemoveLineSeparatorsAndNulls();
 					break;
@@ -642,13 +655,14 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// Will be thrown if the <see cref="EModule"/> passed to the function is not a valid value.
 		/// </exception>
-		protected virtual void RefreshModuleManifest(EModule module)
+		public virtual void RefreshModuleManifest(EModule module)
 		{
 			bool manifestExists;
 			switch (module)
 			{
 				case EModule.Launcher:
 				case EModule.Game:
+				case EModule.Deleted:
 				{
 					manifestExists = File.Exists(this.FileManifestHandler.GetManifestPath((EManifestType)module, false));
 					break;
@@ -696,6 +710,7 @@ namespace Launchpad.Launcher.Handlers.Protocols.Manifest
 			{
 				case EModule.Launcher:
 				case EModule.Game:
+				case EModule.Deleted:
 				{
 					remoteURL = this.FileManifestHandler.GetManifestURL((EManifestType)module);
 					localPath = this.FileManifestHandler.GetManifestPath((EManifestType)module, false);

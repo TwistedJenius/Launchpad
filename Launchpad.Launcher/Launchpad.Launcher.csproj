@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.1.0.0</Version>
+    <Version>2.1.1.0</Version>
     <Description>An open-source launcher for your games.</Description>
     <Authors>Jarl Gullberg;jax</Authors>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
